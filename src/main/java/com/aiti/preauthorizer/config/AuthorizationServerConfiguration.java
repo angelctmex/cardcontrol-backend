@@ -1,8 +1,9 @@
 package com.aiti.preauthorizer.config;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,25 +24,36 @@ import java.security.KeyPair;
 
 @Configuration
 @EnableAuthorizationServer
-@EnableConfigurationProperties(SecurityProperties.class)
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
+
+    @Value("${security.jwt.key-store-name}")
+    private String keystoreName;
+
+    @Value("${security.jwt.key-store}")
+    private Resource keystore;
+
+    @Value("${security.jwt.key-store-password}")
+    private String keystorePass;
+
+    @Value("${security.jwt.key-pair-alias}")
+    private String KeyPairAlias;
+
+    @Value("${security.jwt.key-pair-password}")
+    private String KeyPairPassword;
 
     private final DataSource dataSource;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final SecurityProperties securityProperties;
     private final UserDetailsService userDetailsService;
 
-    private JwtAccessTokenConverter jwtAccessTokenConverter;
     private TokenStore tokenStore;
 
     public AuthorizationServerConfiguration(final DataSource dataSource, final PasswordEncoder passwordEncoder,
-                                            final AuthenticationManager authenticationManager, final SecurityProperties securityProperties,
+                                            final AuthenticationManager authenticationManager,
                                             final UserDetailsService userDetailsService) {
         this.dataSource = dataSource;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
-        this.securityProperties = securityProperties;
         this.userDetailsService = userDetailsService;
     }
 
@@ -66,16 +78,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
-        if (jwtAccessTokenConverter != null) {
-            return jwtAccessTokenConverter;
-        }
-
-        SecurityProperties.JwtProperties jwtProperties = securityProperties.getJwt();
-        KeyPair keyPair = keyPair(jwtProperties, keyStoreKeyFactory(jwtProperties));
-
-        jwtAccessTokenConverter = new JwtAccessTokenConverter();
-        jwtAccessTokenConverter.setKeyPair(keyPair);
-        return jwtAccessTokenConverter;
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        KeyPair keyPair = new KeyStoreKeyFactory(keystore, keystorePass.toCharArray()).getKeyPair(KeyPairAlias, KeyPairPassword.toCharArray());
+        converter.setKeyPair(keyPair);
+        return converter;
     }
 
     @Override
@@ -97,11 +103,4 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 .checkTokenAccess("isAuthenticated()");
     }
 
-    private KeyPair keyPair(SecurityProperties.JwtProperties jwtProperties, KeyStoreKeyFactory keyStoreKeyFactory) {
-        return keyStoreKeyFactory.getKeyPair(jwtProperties.getKeyPairAlias(), jwtProperties.getKeyPairPassword().toCharArray());
-    }
-
-    private KeyStoreKeyFactory keyStoreKeyFactory(SecurityProperties.JwtProperties jwtProperties) {
-        return new KeyStoreKeyFactory(jwtProperties.getKeyStore(), jwtProperties.getKeyStorePassword().toCharArray());
-    }
 }
