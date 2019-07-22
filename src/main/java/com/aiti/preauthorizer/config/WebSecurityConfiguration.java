@@ -1,5 +1,6 @@
 package com.aiti.preauthorizer.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,6 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 
-import javax.sql.DataSource;
 import java.security.KeyPair;
 
 @Configuration
@@ -44,18 +44,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${security.jwt.key-pair-password}")
     private String KeyPairPassword;
 
-    private final DataSource dataSource;
-
     private PasswordEncoder passwordEncoder;
-    private UserDetailsService userDetailsService;
 
-    public WebSecurityConfiguration(final DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService())
+        auth.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -97,15 +93,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
             passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         }
         return passwordEncoder;
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        if (userDetailsService == null) {
-            userDetailsService = new JdbcDaoImpl();
-            ((JdbcDaoImpl) userDetailsService).setDataSource(dataSource);
-        }
-        return userDetailsService;
     }
 
 }
