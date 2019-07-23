@@ -18,14 +18,14 @@ gradle bootWar
 # Usage
 ### Access secure resource with token
 ```sh
-curl -i http://localhost:9191/me
+curl -i http://localhost:9191/api/v1/me
 
 {"error":"unauthorized","error_description":"Full authentication is required to access this resource"}
 ```
 
 ### Fetching access_token and refresh_token
 ```sh
-curl -u rajithapp:secret -X POST localhost:9191/oauth/token\?grant_type=password\&username=admin\&password=admin
+curl -u rajithapp:secret -X POST localhost:9191/api/v1/oauth/token\?grant_type=password\&username=admin\&password=admin
 
 {
     "access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjM4NTAwODMsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiYThmYjQyNjAtYjY3Ni00NjY4LTlkYjgtOWVkZTAxYmY5ZmI1IiwiY2xpZW50X2lkIjoiY2xpZW50SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.WgamLtsHhPDJ7k14nPxfe6i8LilG6rXV9UB1W-aBcQEsHo0cJzw9zSoH25zVdeq_ky7vdVLduY2r2wBtFgikpktlwX462rM9YrZih3kPJkcVrNznfJ7AOuLs5LwDLrJC1uL05Om1IX-8NP7z1Q-wrsPmAGKubkq_TIvRSmF-eeyc-t3MSmq9v_NQG6yFgFZKJT6GNQC9pwhC1Zw5dQa6Lm196JCnIda1gj0Hzxlhz9VBV7433aC411qx4nEMTCm7syjG8nUJ1cA7jF-NlbmTuvyfotq3eyd5InOex40RucgsaU6atdlWiVR4UnsUyKDBdcUcTIhb_Eme1nt5gXKmjQ",
@@ -39,7 +39,7 @@ curl -u rajithapp:secret -X POST localhost:9191/oauth/token\?grant_type=password
 
 ### Fetching acess_token by submitting refresh_token
 ```sh
-curl -u rajithapp:secret -X POST 'http://localhost:9191/oauth/token?grant_type=refresh_token&refresh_token=<refresh_token>'
+curl -u rajithapp:secret -X POST 'http://localhost:9191/api/v1/oauth/token?grant_type=refresh_token&refresh_token=<refresh_token>'
 
 {
     "access_token":"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjM4NTA2NjAsInVzZXJfbmFtZSI6InVzZXIiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNzBiOTFhNjAtMmE3Yi00OTc2LTg2ZWItNDAzODUzYjg1Yjc2IiwiY2xpZW50X2lkIjoiY2xpZW50SWQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.VpPuaHgxPl8Q1AzSd3-ntAnqgRYymrfLKUvgjab06G74Bhp2YYr0h8vmx2115VTDJb7qaXeXkFTH-GKQSx9YJ5zC8Jr_3z75KtlnxbrvgrIcX3QxUbvpSJScMXXt5LK5Rw-z4BLk-eICFeSns4F-DW6DFWjm__HOFjzkXmGjjDrXk-vT-1UHw-pNbsKYGRo0HadWQ6VfN7l2a9tQrfjKzpACp94C8yCRbU4aBd7MyEbGB_YH5ilOuxYFc3RzS5DMHzM94nAyuoOuvtieKNXp9lPIMECQ0QgrX4pPQ-hUbSrJxG2VVl0CB61ZaFFl66kEk8ZHs3QVUytYEX079E7jrA",
@@ -53,7 +53,7 @@ curl -u rajithapp:secret -X POST 'http://localhost:9191/oauth/token?grant_type=r
 
 ### Access secure resource sucessfully
 ```sh
-curl localhost:9191/hello -H "Authorization: Bearer <access_token>"
+curl localhost:9191/api/v1/hello -H "Authorization: Bearer <access_token>"
 
 Hello! user
 ```
