@@ -21,6 +21,7 @@ configurations {
 }
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
@@ -32,6 +33,7 @@ dependencies {
 	compile group: 'commons-io', name: 'commons-io', version: '2.6'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compile group: 'org.postgresql', name: 'postgresql', version:'9.4-1201-jdbc41'
+	compile group: 'com.aiti', name: 'hsm-client', version:'1.0-SNAPSHOT'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
