@@ -1,18 +1,18 @@
 -- The encrypted client_secret it `secret`
 INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_grant_types, authorities, access_token_validity)
-  VALUES ('clientId', '{bcrypt}$2a$10$vCXMWCn7fDZWOcLnIEhmK.74dvK1Eh8ae2WrWlhr2ETPLoxQctN4.', 'read,write', 'password,refresh_token,client_credentials', 'ROLE_CLIENT', 1800);
+  VALUES ('rajithapp', '{bcrypt}$2a$10$vCXMWCn7fDZWOcLnIEhmK.74dvK1Eh8ae2WrWlhr2ETPLoxQctN4.', 'read,write', 'password,refresh_token,client_credentials', 'ROLE_CLIENT', 1800);
   
 INSERT INTO authority (name) VALUES ('ROLE_USER');
 INSERT INTO authority (name) VALUES ('ROLE_ADMIN');
 
 INSERT INTO app_users (username, password, activated, date_created, date_updated) VALUES
-('admin', '{bcrypt}b8f57d6d6ec0a60dfe2e20182d4615b12e321cad9e2979e0b9f81e0d6eda78ad9b6dcfe53e4e22d1', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('admin', '{bcrypt}$2a$10$.mqkAZldK4O0XQktJ/IlVOMaZaaf1mM1HsY0EpklkximKELxaVXvG', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO app_users (username, password, activated, date_created, date_updated) VALUES
-('93737013', '{bcrypt}85cdbe8af44ece1230449db43aa4685c12068157839bda8307ddea0b775d11f017d2b6b0f4f89f50', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('93737013', '{bcrypt}$2a$10$.mqkAZldK4O0XQktJ/IlVOMaZaaf1mM1HsY0EpklkximKELxaVXvG', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO app_users (username, password, activated, date_created, date_updated) VALUES
-('user', '{bcrypt}d6dfa9ff45e03b161e7f680f35d90d5ef51d243c2a8285aa7e11247bc2c92acde0c2bb626b1fac74', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('user', '{bcrypt}$2a$10$cyf5NfobcruKQ8XGjUJkEegr9ZWFqaea6vjpXWEaSqTa2xL9wjgQC', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO app_users (username, password, activated, date_created, date_updated) VALUES
-('pegaso', '{bcrypt}b8f57d6d6ec0a60dfe2e20182d4615b12e321cad9e2979e0b9f81e0d6eda78ad9b6dcfe53e4e22d1', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+('pegaso', '{bcrypt}$2a$10$cyf5NfobcruKQ8XGjUJkEegr9ZWFqaea6vjpXWEaSqTa2xL9wjgQC', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 INSERT INTO user_authority (username,authority) VALUES ('user', 'ROLE_USER');
 INSERT INTO user_authority (username,authority) VALUES ('admin', 'ROLE_USER');
@@ -100,6 +100,3 @@ INSERT INTO TBL_CARDS VALUES(2,2,2,'56581189523852650981', '5759 **** **** 1214'
     INSERT INTO cat_config VALUES(61,3,'ecomerce_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
     INSERT INTO cat_config VALUES(62,3,'telephone_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
     INSERT INTO cat_config VALUES(63,3,'international_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
-
--- update password encripted = pass
-update app_users set password = '{bcrypt}$2a$10$cyf5NfobcruKQ8XGjUJkEegr9ZWFqaea6vjpXWEaSqTa2xL9wjgQC';
