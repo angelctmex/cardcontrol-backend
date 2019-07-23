@@ -6,6 +6,7 @@ import com.aiti.preauthorizer.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,11 @@ public class AdminCodesService {
     @Autowired
     private UserRepository userRepository;
 
+    /*@Autowired
+    private StandardPasswordEncoder standardPasswordEncoder;*/
+
     @Autowired
-    private StandardPasswordEncoder standardPasswordEncoder;
+    private PasswordEncoder standardPasswordEncoder;
 
     @Transactional
     public String isNewAccount( String username ){

@@ -14,7 +14,7 @@ import com.aiti.preauthorizer.services.CryptoSecurityService;
 import com.aiti.preauthorizer.services.TokenService;
 import com.aiti.preauthorizer.services.validations.ValidationsService;
 import com.aiti.preauthorizer.utils.ConstantsRest;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+// import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +66,11 @@ public class TokenServiceImpl implements TokenService {
 
             /** Obteniendo los datos del usuario autenticado **/
             User user = (User) authentication.getPrincipal();
-            log.info( ReflectionToStringBuilder.toString(user) );
+            // log.info( ReflectionToStringBuilder.toString(user) );
 
             /** Obteniendo los datos de la autenticación OAuth **/
             OAuth2AuthenticationDetails oAuth2AuthenticationDetails = (OAuth2AuthenticationDetails) authentication.getDetails();
-            log.info(ReflectionToStringBuilder.toString(oAuth2AuthenticationDetails));
+            // log.info(ReflectionToStringBuilder.toString(oAuth2AuthenticationDetails));
 
             /** Obteniendo la tarjeta **/
             //TODO Realizar bien la obtención de la tarjeta para evitar null pointers
@@ -86,8 +86,8 @@ public class TokenServiceImpl implements TokenService {
             card.setSeed( response.getSeed() );
             cardsRepository.save( card );
 
-            log.info(ReflectionToStringBuilder.toString(response));
-            log.info(ReflectionToStringBuilder.toString(card));
+            // log.info(ReflectionToStringBuilder.toString(response));
+            // log.info(ReflectionToStringBuilder.toString(card));
 
             log.info("<<-------------------------------------------------------------------------------------\n");
 

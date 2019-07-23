@@ -8,7 +8,9 @@ import com.aiti.preauthorizer.services.CryptoSecurityService;
 import com.aiti.preauthorizer.utils.GeneralUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -25,6 +27,9 @@ public class CryptoSecurityServiceImpl implements CryptoSecurityService {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public String getNewCryptoSeed( String user, String pan ) throws CryptosecBankingException{
         String random = UUID.randomUUID().toString().replace("-","");
         String time   = GeneralUtils.getTime("HHmmssSS");
@@ -36,10 +41,10 @@ public class CryptoSecurityServiceImpl implements CryptoSecurityService {
         buffer.append( time );
 
         /** Hasheando la semilla **/
-        ShaPasswordEncoder shaEconder = new ShaPasswordEncoder(512);
-        String seed = shaEconder.encodePassword(buffer.toString(), user);
+        /*ShaPasswordEncoder shaEconder = new ShaPasswordEncoder(512);
+        String seed = shaEconder.encodePassword(buffer.toString(), user);*/
 
-
+        String seed = passwordEncoder.encode(user);
         /** Cifrando comando en el HSM **/
         //String auxSeed = seed.substring(0,16);
 
