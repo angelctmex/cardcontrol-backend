@@ -1,4 +1,4 @@
-package com.aiti.preauthorizer.controllers;
+package com.aiti.preauthorizer.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

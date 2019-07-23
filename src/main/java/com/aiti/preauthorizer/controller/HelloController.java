@@ -1,4 +1,4 @@
-package com.aiti.preauthorizer.controllers;
+package com.aiti.preauthorizer.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
