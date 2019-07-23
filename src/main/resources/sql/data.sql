@@ -100,3 +100,6 @@ INSERT INTO TBL_CARDS VALUES(2,2,2,'56581189523852650981', '5759 **** **** 1214'
     INSERT INTO cat_config VALUES(61,3,'ecomerce_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
     INSERT INTO cat_config VALUES(62,3,'telephone_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
     INSERT INTO cat_config VALUES(63,3,'international_limitTransactionDaily','12','limit Transaction Daily OF CHANEL','config',CURRENT_DATE,CURRENT_TIME);
+
+-- update password encripted = pass
+update app_users set password = '{bcrypt}$2a$10$cyf5NfobcruKQ8XGjUJkEegr9ZWFqaea6vjpXWEaSqTa2xL9wjgQC';
